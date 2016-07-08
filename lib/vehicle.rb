@@ -1,16 +1,16 @@
 class Vehicle
-  attr_reader(:make, :model, :year, :color, :engine_size, :number_of_doors)
+  attr_reader(:make, :model, :year, :color, :engine_size, :number_of_doors, :id)
 
+  @@vehicles = []
 
-  define_method(:initialize) do |make, model, year, color, engine_size, number_of_doors|
-      @make = attributes.fetch(:make)
-      @model = attributes.fetch(:model)
-      @year = attributes.fetch(:year)
-      @color = attributes.fetch(:color)
-      @engine_size= attributes.fetch(:engine_size)
-      @number_of_doors = attributes.fetch(:number_of_doors)
-      @id = @@vehicles.length().+(1)
-
+  define_method(:initialize) do |attributes|
+    @make = attributes.fetch(:make)
+    @model = attributes.fetch(:model)
+    @year = attributes.fetch(:year)
+    @color = attributes.fetch(:color)
+    @engine_size= attributes.fetch(:engine_size)
+    @number_of_doors = attributes.fetch(:number_of_doors)
+    @id = @@vehicles.length().+(1)
   end
 
   define_singleton_method(:all) do
@@ -27,12 +27,12 @@ class Vehicle
 
   define_method(:age) do
     current_year = Time.new().year()
-    current_year.-(@year)
+    current_year.-( (@year).to_i() )
   end
 
   define_method(:worth_buying?) do
     american_cars = ["Chrysler", "Ford", "GM"]
-    american_cars.include?(@make).&(self.age().<=(16))
+    american_cars.include?(@make).&(self.age().<=(15))
   end
 
   define_singleton_method(:find) do |identification|
@@ -44,4 +44,5 @@ class Vehicle
     end
     found_vehicle
   end
+
 end

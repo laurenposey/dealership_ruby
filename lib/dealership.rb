@@ -1,5 +1,3 @@
-require('vehicle')
-
 class Dealership
   @@dealerships = []
 

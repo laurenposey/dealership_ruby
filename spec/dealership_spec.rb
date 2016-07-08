@@ -1,5 +1,5 @@
-require("rspec")
-require("dealership")
+require('rspec')
+require('dealership')
 require('vehicle')
 
 describe(Dealership) do
@@ -7,21 +7,21 @@ describe(Dealership) do
     Dealership.clear()
   end
 
-  describe("#name") do
+  describe('#name') do
     it("returns the name of the dealership") do
       test_dealership = Dealership.new("Bob's Used Cars")
       expect(test_dealership.name()).to(eq("Bob's Used Cars"))
     end
   end
 
-  describe("#id") do
+  describe('#id') do
     it("returns the id of the dealership") do
       test_dealership = Dealership.new("Bob's Used Cars")
       expect(test_dealership.id()).to(eq(1))
     end
   end
 
-  describe("#cars") do
+  describe('#cars') do
     it("initially returns an empty array of cars for the dealership") do
       test_dealership = Dealership.new("Bob's Used Cars")
       expect(test_dealership.cars()).to(eq([]))
@@ -30,7 +30,7 @@ describe(Dealership) do
 
   describe("#save") do
     it("adds a dealership to the array of saved dealerships") do
-      test_dealership = Dealership.new("Your mom")
+      test_dealership = Dealership.new("Bob's Used Cars")
       test_dealership.save()
       expect(Dealership.all()).to(eq([test_dealership]))
     end
@@ -38,6 +38,14 @@ describe(Dealership) do
 
   describe(".all") do
     it("is empty at first") do
+      expect(Dealership.all()).to(eq([]))
+    end
+  end
+
+  describe(".clear") do
+    it("empties out all of the saved dealerships") do
+      Dealership.new("Bob's Used Cars").save()
+      Dealership.clear()
       expect(Dealership.all()).to(eq([]))
     end
   end
@@ -53,21 +61,12 @@ describe(Dealership) do
   end
 
   describe('#add_vehicle') do
-     it("adds a new vehicle to a dealership") do
-       test_dealership = Dealership.new("Bob's Used Cars")
-       test_vehicle = Vehicle.new("Toyota", "Prius", 2000, "blue", "4L", "4")
-       test_dealership.add_vehicle(test_vehicle)
-       expect(test_dealership.cars()).to(eq([test_vehicle]))
-     end
-   end
-
-  describe(".clear") do
-    it("empties tout all of the saved dealerships") do
-      Dealership.new("Bob's Used Cars").save()
-      Dealership.clear()
-      expect(Dealership.all()).to(eq([]))
+    it("adds a new vehicle to a dealership") do
+      test_dealership = Dealership.new("Bob's Used Cars")
+      test_vehicle = Vehicle.new({:make=> "Toyota", :model => "Prius", :year => "2000", :color => "blue", :engine_size => "4L", :number_of_doors => "4"})
+      test_dealership.add_vehicle(test_vehicle)
+      expect(test_dealership.cars()).to(eq([test_vehicle]))
     end
   end
-
 
 end
